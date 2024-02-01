@@ -1,7 +1,7 @@
 package com.b7av3.loginapp.model;
+import javax.validation.constraints.Size;
 
 import jakarta.persistence.*;
-
 @Entity
 public class User {
     @Id
@@ -9,9 +9,11 @@ public class User {
     private Long id; // The primary key
 
     @Column(nullable = false, unique = true)
+    @Size(min = 4, max = 15)
     private String username;
 
     @Column(nullable = false)
+    @Size(min = 8)
     private String password;
 
     public User() {
