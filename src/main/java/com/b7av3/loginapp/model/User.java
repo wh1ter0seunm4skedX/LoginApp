@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 // This class represents a User entity in the application.
 @Entity
+@Table(name = "users") // had to pick different table name that is not a reserved keyword in SQL
 public class User {
 
     // The primary key for the User entity
