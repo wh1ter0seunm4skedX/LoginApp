@@ -25,7 +25,9 @@ public class UserService {
         // Save the user
         return userRepository.save(user);
     }
-
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
     // Finds a user by their username.
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
