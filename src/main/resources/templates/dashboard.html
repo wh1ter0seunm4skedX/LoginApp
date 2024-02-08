@@ -6,12 +6,13 @@
 </head>
 <body>
 <div class="container">
-    <h2>Welcome, <span th:text="${username}">Username</span>!</h2>
+    <h2>Welcome, <span th:text="${user != null} ? ${user.username} : 'Guest'">Username</span>!</h2>
     <!-- Logout Link -->
     <div>
         <a th:href="@{/logout}">Logout</a>
     </div>
 </div>
+
 <script th:src="@{/static/js/script.js}"></script>
 </body>
 </html>
