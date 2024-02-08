@@ -1,7 +1,8 @@
 package com.b7av3.loginapp.model;
 
 import javax.validation.constraints.Size;
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 
 // This class represents a User entity in the application.
 @Entity
@@ -24,8 +25,7 @@ public class User {
     private String password;
 
     // Default constructor for User
-    public User() {
-    }
+    public User() {}
 
     // Constructor for User with username and password parameters
     public User(String username, String password) {
