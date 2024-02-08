@@ -21,19 +21,19 @@ public class UserController {
     @GetMapping
     public String showDashboard(Model model, Principal principal) {
         if (principal != null) {
-            String username = principal.getName(); // Get the username of the logged-in user
-            // Fetch user data from the database based on the username
+            String username = principal.getName();
             User user = userService.findByUsername(username);
-
             if (user != null) {
                 model.addAttribute("user", user);
-                return "dashboard";
+            } else {
+                // Handle case where user is not found
+                System.out.println("User not found: " + username); // Consider using a logger
+                return "redirect:/login"; // Redirect to login or an error page
             }
         }
-
-        // If the user is not authenticated, they will still be able to access the dashboard page as an anonymous user
         return "dashboard";
     }
+
     // TODO: maybe i will add methods for user-related actions later.
 
 }
