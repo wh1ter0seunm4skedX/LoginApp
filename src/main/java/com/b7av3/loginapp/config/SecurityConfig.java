@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
                 .and()
-                .logout()
+                .logout().logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
                 .csrf().disable(); // Only for testing, enable CSRF protection in production

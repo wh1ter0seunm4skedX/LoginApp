@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+    <link rel="stylesheet" th:href="@{/css/loginStyle.css}" type="text/css">
 </head>
 <body>
 <div class="container">
-    <h2>Welcome, <span id="username-placeholder"></span>!</h2>
+    <h2>Welcome, <span th:text="${username}">Username</span>!</h2>
+    <!-- Logout Link -->
+    <div>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
 </div>
-<script src="/static/js/script.js"></script>
+<script th:src="@{/static/js/script.js}"></script>
 </body>
 </html>
