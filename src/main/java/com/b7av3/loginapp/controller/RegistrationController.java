@@ -6,52 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/signup")
-    public String showRegistrationForm(Model model) {
+    public String showSignUpForm(@RequestParam(value = "type", defaultValue = "user") String type, Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("signupType", type);
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
-        // First, check if the username already exists to avoid unnecessary validation
-        if (!result.hasErrors() && !userService.registerNewUser(user)) {
+    public String register(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
+                           @RequestParam(value = "type", defaultValue = "user") String type) {
+        if (result.hasErrors()) {
+            model.addAttribute("signupType", type);
+            return "signup";
+        }
+
+        if (!userService.registerNewUser(user, type)) {
             model.addAttribute("registrationError", "Username already exists.");
+            model.addAttribute("signupType", type);
             return "signup";
         }
 
-        // Handle validation errors for username and password individually
-        boolean usernameError = false;
-        boolean passwordError = false;
-        for (FieldError fieldError : result.getFieldErrors()) {
-            if ("username".equals(fieldError.getField())) {
-                model.addAttribute("usernameError", fieldError.getDefaultMessage());
-                usernameError = true;
-            } else if ("password".equals(fieldError.getField())) {
-                model.addAttribute("passwordError", fieldError.getDefaultMessage());
-                passwordError = true;
-            }
-        }
-
-        // If there were any errors related to username or password, return to the signup page
-        if (usernameError || passwordError || result.hasErrors()) {
-            return "signup";
-        }
-
-        // If no errors, redirect to the login page after successful registration
         return "redirect:/login";
     }
 }

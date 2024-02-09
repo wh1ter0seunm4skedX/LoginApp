@@ -2,6 +2,7 @@ package com.b7av3.loginapp.model;
 
 import javax.validation.constraints.Size;
 import javax.persistence.*;
+import java.util.Set;
 
 
 // This class represents a User entity in the application.
@@ -19,10 +20,13 @@ public class User {
     @Size(min = 4, max = 15)
     private String username;
 
-    // User's password, must be at least 8 characters in length
+    // User's password, must be at least 4 characters in length
     @Column(nullable = false)
-    @Size(min = 8, max = 16)
+    @Size(min = 4)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles;
 
     // Default constructor for User
     public User() {}
@@ -63,5 +67,12 @@ public class User {
         this.password = password;
     }
 
-    // TODO: Consider overriding toString and equals methods for better object representation and comparisons.
+    // Getter method for retrieving the User's roles
+    public Set<String> getRoles() {
+        return roles;
+    }
+    // Setter method for setting the User's roles
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }

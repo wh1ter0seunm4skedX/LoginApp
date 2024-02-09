@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Register</title>
-  <link rel="stylesheet" th:href="@{/css/loginStyle.css}" type="text/css">
+    <title>Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/loginStyle.css}" type="text/css">
 </head>
 <body>
-<h2>Register</h2>
-<form th:action="@{/signup}" th:object="${user}" method="post">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" th:field="*{username}" required />
-    <p th:if="${usernameError}" th:text="${usernameError}" class="error"></p>
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" th:field="*{password}" required />
-    <p th:if="${passwordError}" th:text="${passwordError}" class="error"></p>
-  </div>
-
-  <div>
-    <button type="submit">Register</button>
-  </div>
-  <div th:if="${registrationError}">
-    <p th:text="${registrationError}"></p>
-  </div>
-</form>
+<div class="container">
+    <h1 th:text="${signupType == 'admin' ? 'Admin Registration' : 'User Registration'}"></h1>
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <input type="hidden" name="type" th:value="${signupType}" />
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" required>
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div th:if="${registrationError}">
+            <p class="error" th:text="${registrationError}"></p>
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a th:href="@{/login}">Sign in</a></p>
+</div>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

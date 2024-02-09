@@ -10,65 +10,70 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder; // Ensure this is uncommented and properly injected
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder; // Initialize the passwordEncoder
+        this.passwordEncoder = passwordEncoder;
     }
 
-    // Saves a user to the repository after encoding their password.
-    public User saveUser(User user) {
-        // Encode the password
-     //   user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // Save the user
-        return userRepository.save(user);
+    public boolean registerNewUser(User user, String type) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            return false; // User already exists
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encode the password
+
+        // Determine roles based on the type
+        Set<String> roles = new HashSet<>();
+        if ("admin".equals(type)) {
+            roles.add("ROLE_ADMIN");
+        } else {
+            roles.add("ROLE_USER");
+        }
+        user.setRoles(roles); // Set roles for the user
+
+        userRepository.save(user); // Save the user
+        return true;
     }
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
-    }
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-    // Finds a user by their username.
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                getAuthorities(user)
+        );
     }
 
-    public boolean registerNewUser(User user) {
-        // Check if user already exists
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            // User already exists
-            return false;
-        }
-        // Encode the password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // Save the new user
-        userRepository.save(user);
-        return true;
+    @Transactional
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        // Here you can assign roles to the user and return them as authorities
-        // For simplicity, let's grant every user a ROLE_USER authority.
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        return user.getRoles().stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
     }
 }
