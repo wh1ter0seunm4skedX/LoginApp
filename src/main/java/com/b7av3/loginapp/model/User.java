@@ -21,7 +21,7 @@ public class User {
 
     // User's password, must be at least 8 characters in length
     @Column(nullable = false)
-    @Size(min = 8)
+    @Size(min = 8, max = 16)
     private String password;
 
     // Default constructor for User
