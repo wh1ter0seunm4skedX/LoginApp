@@ -4,10 +4,9 @@ import javax.validation.constraints.Size;
 import javax.persistence.*;
 import java.util.Set;
 
-
 // This class represents a User entity in the application.
 @Entity
-@Table(name = "users") // had to pick different table name that is not a reserved keyword in SQL
+@Table(name = "users")
 public class User {
 
     // The primary key for the User entity
@@ -71,6 +70,7 @@ public class User {
     public Set<String> getRoles() {
         return roles;
     }
+
     // Setter method for setting the User's roles
     public void setRoles(Set<String> roles) {
         this.roles = roles;

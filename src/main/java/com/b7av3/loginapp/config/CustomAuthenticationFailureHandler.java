@@ -13,6 +13,16 @@ import java.io.IOException;
 
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    /**
+     * Overrides the onAuthenticationFailure method to handle authentication failure.
+     * It constructs a default failure URL based on the login type and sets it as the default failure URL.
+     *
+     * @param request     HttpServletRequest object
+     * @param response    HttpServletResponse object
+     * @param exception   AuthenticationException object
+     * @throws IOException      if an I/O error occurs
+     * @throws ServletException if a servlet-related error occurs
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         // Retrieve the login type from the request parameter

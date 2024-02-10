@@ -10,10 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class LoginAppApplication {
 
+    // Main method to start the Spring Boot application
     public static void main(String[] args) {
         SpringApplication.run(LoginAppApplication.class, args);
     }
 
+    // Bean to set up default user when the application starts
     @Bean
     public CommandLineRunner setupDefaultUser(UserService userService, PasswordEncoder passwordEncoder) {
         return args -> {

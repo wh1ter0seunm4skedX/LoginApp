@@ -20,19 +20,30 @@ public class DashboardController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Handles requests to display the dashboard.
+     *
+     * @param model the Model object to populate data for the view
+     * @return the view name for the dashboard page
+     */
     @GetMapping
     public String showDashboard(Model model) {
+        // Retrieve the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userService.findByUsername(username);
 
+        // Check if the user exists
         if (user != null) {
+            // Add user information to the model
             model.addAttribute("user", user);
+
             // Determine user's roles for display
             String roles = authentication.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.joining(", "));
             model.addAttribute("roles", roles); // Add roles to the model
+
             return "dashboard"; // Unified dashboard view
         } else {
             // Handle case where user is not found

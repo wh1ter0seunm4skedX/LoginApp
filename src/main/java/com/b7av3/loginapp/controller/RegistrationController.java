@@ -24,7 +24,13 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    // Show the signup form with user type selection
+    /**
+     * Displays the signup form with user type selection.
+     *
+     * @param type  the type of user being signed up (e.g., "user" or "admin")
+     * @param model the Model object to populate data for the view
+     * @return the view name for the signup form
+     */
     @GetMapping("/signup")
     public String showSignUpForm(@RequestParam(value = "type", defaultValue = "user") String type, Model model) {
         if (!model.containsAttribute("user")) {
@@ -34,7 +40,15 @@ public class RegistrationController {
         return "signup";
     }
 
-    // Handle user registration
+    /**
+     * Handles user registration.
+     *
+     * @param user   the User object containing registration data
+     * @param result the BindingResult object for validation errors
+     * @param model  the Model object to populate data for the view
+     * @param type   the type of user being signed up (e.g., "user" or "admin")
+     * @return the view name for the signup form or a redirect to the homepage
+     */
     @PostMapping("/signup")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
                            @RequestParam(value = "type", defaultValue = "user") String type) {
