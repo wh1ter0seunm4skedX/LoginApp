@@ -18,32 +18,40 @@ public class RegistrationController {
 
     private final UserService userService;
 
+    // Constructor injection for UserService
     @Autowired
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
+    // Show the signup form with user type selection
     @GetMapping("/signup")
     public String showSignUpForm(@RequestParam(value = "type", defaultValue = "user") String type, Model model) {
-        model.addAttribute("user", new User());
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", new User()); // Ensure a new User is added
+        }
         model.addAttribute("signupType", type);
         return "signup";
     }
 
+    // Handle user registration
     @PostMapping("/signup")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
                            @RequestParam(value = "type", defaultValue = "user") String type) {
+        // Validate user input
         if (result.hasErrors()) {
             model.addAttribute("signupType", type);
             return "signup";
         }
 
+        // Attempt to register the new user
         if (!userService.registerNewUser(user, type)) {
             model.addAttribute("registrationError", "Username already exists.");
             model.addAttribute("signupType", type);
             return "signup";
         }
 
-        return "redirect:/login";
+        // Redirect to homepage with signup success indicator
+        return "redirect:/?signupSuccess=true";
     }
 }

@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/loginStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 <body>
 <div class="container">
     <h1 th:text="${loginType == 'admin' ? 'Admin Sign In' : 'User Sign In'}"></h1>
-    <form th:action="@{/login}" method="post">
+    <!-- Include the type parameter in the form action -->
+    <form th:action="@{/login(type=${loginType})}" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -24,13 +25,9 @@
         </div>
         <button type="submit">Sign In</button>
     </form>
-    <div th:if="${loginType == 'admin'}">
-        <a th:href="@{/signup?type='admin'}">Sign Up as Admin</a>
+    <div class="return-home">
+        <a th:href="@{/}">Return to Home</a>
     </div>
-    <div th:if="${loginType != 'admin'}">
-        <a th:href="@{/signup?type='user'}">Sign Up as User</a>
-    </div>
-
 </div>
 <script th:src="@{/js/script.js}"></script>
 </body>

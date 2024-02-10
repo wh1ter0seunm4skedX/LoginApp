@@ -1,49 +1,84 @@
-body, html {
+body {
+    font-family: 'Assistant', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-}
-
-.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     height: 100vh;
-    flex-direction: column;
-    background: #f5f5f5;
+    background-color: #f4f4f4;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 2rem;
+.container {
+    text-align: center;
+    width: 60%;
 }
 
-a {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-a:hover {
-    background-color: #0056b3;
-}
-
-/* Additional styling for signup links */
-.signup-link {
+.side-by-side {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-.signup-link a {
-    background-color: #28a745;
+.user-side, .admin-side {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
 }
 
-.signup-link a:hover {
-    background-color: #218838;
+.user-side {
+    background-color: #e2e3e5; /* Light gray for user */
+    color: black;
 }
+
+.admin-side {
+    background-color: #004085; /* Dark blue for admin */
+    color: white;
+}
+
+.user-side a, .admin-side a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.user-side a:hover, .admin-side a:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.success-message {
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00b398; /* Dark purple */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensure it floats above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px; /* Adjust based on your preference */
+    box-sizing: border-box;
+}
+
+.success-message button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+/* Additional styling for the container, user-side, and admin-side if needed */

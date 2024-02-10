@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sign Up</title>
-    <link rel="stylesheet" th:href="@{/css/loginStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 <body>
 <div class="container">
@@ -24,7 +24,9 @@
         </div>
         <button type="submit">Sign Up</button>
     </form>
-    <p>Already have an account? <a th:href="@{/login}">Sign in</a></p>
+    <div class="return-home">
+        <a th:href="@{/}">Return to Home</a>
+    </div>
 </div>
 <script th:src="@{/js/script.js}"></script>
 </body>

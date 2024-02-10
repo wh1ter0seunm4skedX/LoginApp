@@ -5,18 +5,37 @@
     <link rel="stylesheet" th:href="@{/css/landingStyle.css}" type="text/css">
 </head>
 <body>
+<div id="successMessage" class="success-message" th:if="${param.signupSuccess}">
+    <p>Registration successful!</p>
+    <button onclick="closeMessage()">X</button>
+</div>
+
 <div class="container">
     <h1>Welcome to My Application</h1>
-    <div>
-        <a th:href="@{/login(type=user)}">User Sign In</a>
-        <a th:href="@{/login(type=admin)}">Admin Sign In</a>
-
-    </div>
-    <div>
-        <!-- Updated links to use a single signup endpoint with a type parameter -->
-        <a th:href="@{/signup(type=admin)}">Sign Up as Admin</a>
-        <a th:href="@{/signup(type=user)}">Sign Up as User</a>
+    <div class="side-by-side">
+        <div class="user-side">
+            <h2>User Access</h2>
+            <a th:href="@{/login(type=user)}">User Sign In</a>
+            <a th:href="@{/signup(type=user)}">Sign Up as User</a>
+        </div>
+        <div class="admin-side">
+            <h2>Admin Access</h2>
+            <a th:href="@{/login(type=admin)}">Admin Sign In</a>
+            <a th:href="@{/signup(type=admin)}">Sign Up as Admin</a>
+        </div>
     </div>
 </div>
+
+<script>
+    function closeMessage() {
+        document.getElementById('successMessage').style.display = 'none';
+    }
+
+    // Close the success registration message after 5 seconds
+    setTimeout(closeMessage, 5000);
+</script>
+</body>
+</html>
+
 </body>
 </html>

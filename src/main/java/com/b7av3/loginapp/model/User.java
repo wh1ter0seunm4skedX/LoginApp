@@ -22,7 +22,7 @@ public class User {
 
     // User's password, must be at least 4 characters in length
     @Column(nullable = false)
-    @Size(min = 4)
+    @Size(min = 4, max=256)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
