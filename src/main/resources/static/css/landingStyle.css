@@ -28,12 +28,12 @@ body {
 }
 
 .user-side {
-    background-color: #e2e3e5; /* Light gray for user */
+    background-color: #e2e3e5;
     color: black;
 }
 
 .admin-side {
-    background-color: #004085; /* Dark blue for admin */
+    background-color: #004085;
     color: white;
 }
 
@@ -60,16 +60,16 @@ h2 {
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #00b398; /* Dark purple */
+    background-color: #00b398;
     color: white;
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1001; /* Ensure it floats above other content */
+    z-index: 1001;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 400px; /* Adjust based on your preference */
+    max-width: 400px;
     box-sizing: border-box;
 }
 
@@ -80,5 +80,3 @@ h2 {
     cursor: pointer;
     margin-left: 15px;
 }
-
-/* Additional styling for the container, user-side, and admin-side if needed */

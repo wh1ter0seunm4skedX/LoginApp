@@ -19,9 +19,9 @@ public class User {
     @Size(min = 4, max = 15)
     private String username;
 
-    // User's password, must be at least 4 characters in length
+    // User's password, must be at least 6 characters in length
     @Column(nullable = false)
-    @Size(min = 4, max=256)
+    @Size(min = 6, max=256)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

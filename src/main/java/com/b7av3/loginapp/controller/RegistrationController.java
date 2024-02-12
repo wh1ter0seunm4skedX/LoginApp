@@ -60,7 +60,7 @@ public class RegistrationController {
 
         // Attempt to register the new user
         if (!userService.registerNewUser(user, type)) {
-            model.addAttribute("registrationError", "Username already exists.");
+            model.addAttribute("usernameExistsError", "This username is already taken. Please choose another.");
             model.addAttribute("signupType", type);
             return "signup";
         }

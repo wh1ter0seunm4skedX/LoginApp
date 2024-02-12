@@ -14,8 +14,9 @@ public class LoginAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(LoginAppApplication.class, args);
     }
-
-    // Bean to set up default user when the application starts
+    /*
+    // method for running and debugging - testing purposes only -
+    // use this if you want to delete the user database.
     @Bean
     public CommandLineRunner setupDefaultUser(UserService userService, PasswordEncoder passwordEncoder) {
         return args -> {
@@ -23,4 +24,6 @@ public class LoginAppApplication {
             userService.deleteAllUsers();
         };
     }
+     */
+
 }

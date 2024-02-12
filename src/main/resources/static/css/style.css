@@ -63,32 +63,31 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* New styles for admin and user */
 .admin-style {
-    background-color: #004085; /* A darker shade for admin */
+    background-color: #004085;
     color: white; /* Ensuring text is readable against the darker background */
 }
 
 .user-style {
-    background-color: #e2e3e5; /* A lighter shade for users */
+    background-color: #e2e3e5;
     color: black; /* Suitable for lighter backgrounds */
 }
 
-/* Style adjustments for the return home button */
+
 .return-home a {
     display: inline-block;
-    background-color: #5e3a78; /* Dark purple background color */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Padding around the text */
-    margin-top: 20px; /* Space above the button */
-    border-radius: 5px; /* Rounded corners */
-    text-decoration: none; /* Remove underline from link */
-    font-weight: bold; /* Make the text bold */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    background-color: #5e3a78;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .return-home a:hover {
-    background-color: #472c5b; /* Even darker shade of purple when hovered */
+    background-color: #472c5b;
 }
 
 /* Ensuring the container takes minimum height to push the button to the bottom */
@@ -99,3 +98,25 @@ button:hover {
     min-height: 400px; /* Minimum height to ensure the button can be pushed to the bottom */
 }
 
+/* Styles for password strength meter */
+.password-strength {
+    height: 10px;
+    width: 100%;
+    background-color: #ddd;
+    margin-top: 5px;
+}
+
+.strength-weak {
+    width: 33%;
+    background-color: red;
+}
+
+.strength-medium {
+    width: 66%;
+    background-color: orange;
+}
+
+.strength-strong {
+    width: 100%;
+    background-color: green;
+}

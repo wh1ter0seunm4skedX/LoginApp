@@ -6,28 +6,30 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${signupType == 'admin' ? 'Admin Registration' : 'User Registration'}"></h1>
+    <h1 th:text="${signupType == 'admin' ? 'Admin Registration' : 'User Registration'}">Registration</h1>
     <form th:action="@{/signup}" th:object="${user}" method="post">
-        <input type="hidden" name="type" th:value="${signupType}" />
+        <!-- Username Field -->
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" th:field="*{username}" required>
-            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            <div class="error" th:if="${usernameExistsError}" th:text="${usernameExistsError}"></div>
         </div>
+
+        <!-- Password Field with onkeyup event listener for strength check -->
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" required>
+            <input type="password" id="password" th:field="*{password}" required onkeyup="checkPasswordStrength();">
+            <div id="password-strength" class="password-strength"></div>
             <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
-        <div th:if="${registrationError}">
-            <p class="error" th:text="${registrationError}"></p>
-        </div>
+
         <button type="submit">Sign Up</button>
     </form>
-    <div class="return-home">
-        <a th:href="@{/}">Return to Home</a>
-    </div>
+    <p>Already have an account? <a th:href="@{/login}">Sign in</a></p>
 </div>
-<script th:src="@{/js/script.js}"></script>
+
+<!-- JavaScript for checking password strength -->
+<script src="/js/passwordStrengthMeter.js"></script>
+
 </body>
 </html>
