@@ -22,11 +22,11 @@ This Spring Boot application demonstrates a secure login and registration system
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/wh1ter0seunm4skedX/SpringBootLoginApp.git
+    git clone https://github.com/wh1ter0seunm4skedX/Secure-Login-and-Registration-with-Spring-Boot.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd SpringBootLoginApp
+    cd Secure-Login-and-Registration-with-Spring-Boot
     ```
 3. Create a PostgreSQL database named `LoginApp`.
 4. Update `src/main/resources/application.properties` with your PostgreSQL username and password:
